@@ -30,6 +30,14 @@ void    decrement_test(Bureaucrat sample)
 int main()
 {
     Bureaucrat a("ale", 150);
+    Bureaucrat e;
+    e = a;
+    std::cout <<" = operator src " << a << std::endl;
+    std::cout <<" = operator dst" << e << std::endl;
+    Bureaucrat clone(a);
+    std::cout <<" copy constructor src " << a << std::endl;
+    std::cout <<" copy constructor dst " << clone << std::endl;
+
     Bureaucrat b("bob", 1);
     increment_test(a);
     increment_test(b);
@@ -45,6 +53,7 @@ int main()
     {
         std::cerr << e.what() << std::endl;
     }
+
     try
     {
         Bureaucrat f("falco", -1);
