@@ -1,0 +1,41 @@
+#include <iostream>
+
+class Human
+{
+public:
+    virtual void speak() const = 0;
+};
+
+class Japanese : public Human
+{
+public:
+    void speak() const override
+    {
+        std::cout << "こんにちは。" << std::endl;
+    }
+};
+
+class America : public Human
+{
+public:
+    void speak() const override
+    {
+        std::cout << "hello" << std::endl;
+    }
+};
+
+//引数を基底クラスの参照で受け取る
+void action(const Human &human)
+{
+    human.speak();
+}
+
+int main()
+{
+    America john;
+    Japanese taro;
+
+    action(john);
+    action(taro);
+
+}

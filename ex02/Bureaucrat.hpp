@@ -1,33 +1,53 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   PresidentialPardonForm.hpp                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: alallema <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/03 00:22:41 by alallema          #+#    #+#             */
-/*   Updated: 2018/04/03 02:41:50 by alallema         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#ifndef BUREAUCRAT_HPP
+#define BUREAUCRAT_HPP
 
-#ifndef PRESIDENTIALPARDONFORM_HPP
-# define PRESIDENTIALPARDONFORM_HPP
 #include <iostream>
-#include <fstream>
+class Bureaucrat;
 #include "Form.hpp"
 
-class	PresidentialPardonForm : public Form{
-
-public:
-	PresidentialPardonForm(std::string target);
-	PresidentialPardonForm(PresidentialPardonForm const & src);
-	virtual ~PresidentialPardonForm(void);
-
-	PresidentialPardonForm &			operator=(PresidentialPardonForm const & rhs);
-	virtual void					execute(Bureaucrat const & executor) const;
-
-private:
-	PresidentialPardonForm(void);
+class Bureaucrat
+{
+  public:
+        //==CONSTRUCTERS==
+        //default
+        Bureaucrat();
+        //with name and grade
+        Bureaucrat(std::string name, int grade);
+        //copy constructor
+        Bureaucrat(Bureaucrat &src);
+        //==DESTRUCTOR==
+        ~Bureaucrat();
+        //== '=' overload==
+        Bureaucrat& operator=(const Bureaucrat& src);
+        //==GETTERS==
+        //getName
+        std::string getName() const;
+        //getGrade
+        int getGrade() const;
+        //==SETTERS==
+        //setGrade
+        void set_grade(int v);
+        //==UNIQUE FUNCS==
+        //incrementGrade
+        void incrementGrade();
+        //decrementGrade
+        void decrementGrade();
+        //exceptions
+        class GradeTooHighException:public std::exception
+        {
+            const char* what() const throw();
+        };
+        class GradeTooLowException:public std::exception
+        {
+            const char* what() const throw();
+        };
+        void    signForm(Form &form);
+    private:
+        std::string const _name;
+        int         _grade;
 };
+
+//== '<<' overload==
+std::ostream& operator<<(std::ostream &out, Bureaucrat &bureau);
 
 #endif
